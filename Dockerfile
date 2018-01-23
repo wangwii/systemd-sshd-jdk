@@ -11,6 +11,7 @@ RUN sed -i 's/PermitRootLogin without-password/PermitRootLogin yes/' /etc/ssh/ss
     sed 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' -i /etc/pam.d/sshd
 
 COPY .ssh/ /root/.ssh/
+RUN chmod 400 /root/.ssh/id_rsa
 RUN echo 'root:root' | chpasswd
 RUN systemctl enable sshd.service
 

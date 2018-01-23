@@ -1,0 +1,9 @@
+version: '3'
+services:
+  host:
+    image: wangwii/systemd-sshd-jdk:latest
+    privileged: true
+    ports:
+      - "2222:22"
+    volumes:
+      - .:/src
