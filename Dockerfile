@@ -17,9 +17,9 @@ RUN systemctl enable sshd.service
 
 # Install Java
 ENV JAVA_VERSION=8 \
-    JAVA_UPDATE=151 \
+    JAVA_UPDATE=161 \
     JAVA_BUILD=12 \
-    JAVA_PATH=e758a0de34e24606bca991d704f6dcbf
+    JAVA_PATH=2f38c3b165be4555a1fa6e98c45e0808
 RUN curl -kL -H "Cookie: oraclelicense=accept-securebackup-cookie" \
         -o "jdk-${JAVA_VERSION}u${JAVA_UPDATE}-linux-x64.rpm" \
         "http://download.oracle.com/otn-pub/java/jdk/${JAVA_VERSION}u${JAVA_UPDATE}-b${JAVA_BUILD}/${JAVA_PATH}/jdk-${JAVA_VERSION}u${JAVA_UPDATE}-linux-x64.rpm" && \

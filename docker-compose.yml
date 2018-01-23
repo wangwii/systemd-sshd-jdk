@@ -1,6 +1,7 @@
 version: '3'
 services:
   host:
+    build: .
     image: wangwii/systemd-sshd-jdk:latest
     privileged: true
     ports:
