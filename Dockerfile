@@ -1,9 +1,16 @@
 FROM centos/systemd:latest
 LABEL maintainer "Wang Wei - https://github.com/wangwii"
 
-# Install sshd service
+# Prepare yum EPEL repo
 RUN yum -y update && \
-    yum -y install openssh openssh-clients openssh-server
+    yum -y install epel-release
+
+# Install pdsh(https://code.google.com/archive/p/pdsh/downloads)
+RUN yum -y install pdsh
+
+# Install and Config sshd service
+RUN yum -y install openssh openssh-clients openssh-server
+
 RUN ssh-keygen -f /etc/ssh/ssh_host_rsa_key -N '' -t rsa && \
     ssh-keygen -f /etc/ssh/ssh_host_ecdsa_key -N '' -t ecdsa && \
     ssh-keygen -A
@@ -15,10 +22,13 @@ RUN chmod 400 /root/.ssh/id_rsa
 RUN echo 'root:root' | chpasswd
 RUN systemctl enable sshd.service
 
-# Install Java
-ENV JAVA_VERSION=8 \
+# Install pdsh(https://code.google.com/archive/p/pdsh/downloads)
+RUN yum -y install pdsh
+
+# Install Java(http://www.oracle.com/technetwork/java/javase/overview/index.html)
+ENV JAVA_BUILD=12 \
+    JAVA_VERSION=8 \
     JAVA_UPDATE=161 \
-    JAVA_BUILD=12 \
     JAVA_PATH=2f38c3b165be4555a1fa6e98c45e0808
 RUN curl -kL -H "Cookie: oraclelicense=accept-securebackup-cookie" \
         -o "jdk-${JAVA_VERSION}u${JAVA_UPDATE}-linux-x64.rpm" \
